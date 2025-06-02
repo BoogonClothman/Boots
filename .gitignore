@@ -7,5 +7,9 @@ resources/.rag/texts.pkl
 test*.*
 *.whl
 documents
-Framework/Frontend/.static/*
+Framework/Frontend/.static/*.1024
+Framework/Frontend/.static/*.2048
+Framework/Frontend/.static/*.4096
+Framework/Frontend/.static/*.json
+Framework/Frontend/.static/*.moc3
 **/__pycache__/*
