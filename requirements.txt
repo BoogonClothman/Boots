@@ -1,0 +1,37 @@
+torch=2.6.0
+# 按照安装次序，首先应当安装PyTorch库，这将为后续的安装提供正确支持。 According to the installation order, PyTorch library should be installed first, which will provide correct support for subsequent installations.
+# 请根据您的硬件环境选择合适版本，例如cu124表示CUDA 12.4，cpu表示CPU版本。 Please choose the appropriate version according to your hardware environment, for example, cu124 represents CUDA 12.4, and cpu represents the CPU version.
+# 请注意，PyTorch的安装可能需要较长时间，具体时间取决于您的网络环境和硬件性能。 Please note that the installation of PyTorch may take a long time, depending on your network environment and hardware performance.
+
+llama-cpp-python=0.3.4
+# 在目前测试版本中，llama-cpp-python的版本号确定为0.3.4（CUDA），请暂时不要更改版本，否则可能导致编译错误。 In the current test version, the version number of llama-cpp-python is determined to be 0.3.4 (CUDA). Please do not change the version temporarily, otherwise compilation errors may occur.
+# 请根据您的硬件环境选择合适版本，例如cuda表示CUDA版本，cpu表示CPU版本。 Please choose the appropriate version according to your hardware environment, for example, cuda represents the CUDA version, and cpu represents the CPU version.
+# 为避免错误，可以从GitHub仓库下载预编译的wheel文件，然后使用pip安装。 To avoid errors, you can download the precompiled wheel file from the GitHub repository and then install it using pip.
+
+sentence-transformers
+# Sentence Transformers是Hugging Face的文本向量化库，用于实现文本向量化功能。 Sentence Transformers is a text vectorization library from Hugging Face, used to implement text vectorization functions.
+# Sentence Transformers提供了多种预训练模型，可以根据需求选择合适的模型。 Sentence Transformers provides a variety of pre-trained models, which can be selected according to requirements.
+# 请注意，Sentence Transformers的安装可能需要较长时间，具体时间取决于您的网络环境和硬件性能。 Please note that the installation of Sentence Transformers may take a long time, depending on your network environment and hardware performance.
+
+faiss
+# 请根据您的硬件环境选择合适版本，例如faiss-cpu表示CPU版本。 Please choose the appropriate version according to your hardware environment, for example, faiss-cpu represents the CPU version.
+# 请注意，faiss的安装可能需要较长时间，具体时间取决于您的网络环境和硬件性能。 Please note that the installation of faiss may take a long time, depending on your network environment and hardware performance.
+
+edge-tts
+# edge-tts是Microsoft的EdgeTTS语音合成引擎的Python 封装API库，用于实现语音合成功能。 edge-tts is a Python wrapper API library for Microsoft's EdgeTTS speech synthesis engine, used to implement speech synthesis functions.
+# 请注意，使用edge-tts需要保证相对稳定的网络连接，否则可能导致语音合成失败。 Using edge-tts requires a relatively stable network connection, otherwise speech synthesis may fail.
+
+sounddevice
+# sounddevice是Python的音频输入输出库，用于实现音频的录制和播放功能。 sounddevice is a Python audio input/output library, used to implement audio recording and playback functions.
+
+flask
+# flask是Python的Web框架，用于实现Web服务。 flask is a Python web framework used to implement web services.
+
+flask-cors
+# flask-cors是flask的跨域请求支持库，用于实现跨域请求的支持。 flask-cors is a cross-origin request support library for flask, used to implement cross-origin request support.
+# 在开发过程中，可能会使用不同的域名或端口进行测试，因此需要使用flask-cors来支持跨域请求。 During development, different domain names or ports may be used for testing, so flask-cors is needed to support cross-origin requests.
+# 在生产环境中，建议调整跨域请求支持，以提高安全性。 In the production environment, it is recommended to adjust cross-origin request support to improve security.
+
+flask-socketio
+# flask-socketio是flask的WebSocket支持库，用于实现WebSocket的支持。 flask-socketio is a WebSocket support library for flask, used to implement WebSocket support.
+# 在实时通信场景中，WebSocket是一种更为高效的通信方式，因此需要使用flask-socketio来支持WebSocket。 In real-time communication scenarios, WebSocket is a more efficient communication method, so flask-socketio is needed to support WebSocket.

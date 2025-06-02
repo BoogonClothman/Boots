@@ -1,0 +1,11 @@
+output/.tts/*
+resources/.bad/*
+resources/.llm/*
+resources/.rag/models/*
+resources/.rag/index.faiss
+resources/.rag/texts.pkl
+test*.*
+*.whl
+documents
+Framework/Frontend/.static/*
+**/__pycache__/*

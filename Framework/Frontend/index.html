@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>Boots Frontend</title>
+    <script src="./static/live2d-sdk/live2dcubismcore.min.js"></script>
+    <script src="./static/live2d-sdk/pixi.min.js"></script>
+    <script src="./static/live2d-sdk/cubism4.js"></script>
+    <script src="./static/socket.io.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #container {
+            position: relative;
+            display: flex;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        #live2d {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        #subtitle {
+            display: flex;
+            flex-direction: column;
+            align-self: center;
+            max-width: 1000px;
+            text-align: center;
+            margin: auto auto 50px auto;
+            z-index: 1000;
+
+            font-family: "Microsoft YaHei", sans-serif;
+            font-size: 50px;
+            color: #ba9;
+            -webkit-text-stroke: 1px #fff;
+            background-color: rgba(255, 238, 221, 0.9);
+            border-radius: 5px
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <canvas id="live2d"></canvas>
+        <span id="subtitle"></span>
+    </div>
+</body>
+<script>
+    const canvas = document.getElementById("live2d");
+    const canvasBox = canvas.getBoundingClientRect();
+    const W = canvasBox.width;
+    const H = canvasBox.height;
+    
+    /* Main Function */
+    (async function main() {
+        const app = new PIXI.Application({
+            view: canvas,
+            autoStart: true,
+            resizeTo: window,
+            backgroundAlpha: 0
+        });
+
+        /******************** Live2D模型 ********************/
+        const model = await PIXI.live2d.Live2DModel.from("./static/<your-model>.model3.json", {autoInteract: false});
+        
+        model.scale.set(0.3)
+        model.anchor.set(0.5, 0.5)
+        model.x = canvasBox.x + W/2
+        model.y = canvasBox.y + H*5/4
+        app.stage.addChild(model)
+        console.log(model.x, model.y)
+
+        /******************** 视觉焦点系统 ********************/
+        // 初始化视觉焦点
+        let currentFocus = { x: W / 2, y: H / 2 };
+
+        // 坐标映射角度函数，以30°计满量
+        function getAngle(focusX, focusY) {
+            const D = 180 / Math.PI
+            return {
+                x: Math.atan((2 * focusX - W) / (Math.sqrt(3) * W)) * D,
+                y: Math.atan((H - 2 * focusY) / (Math.sqrt(3) * H)) * D
+            }
+        }
+
+        // 随机目标生成
+        function targetFocusGenerate() {
+            const marginX = W / 8;
+            const marginY = H / 5;
+            return {
+                x: marginX + Math.random() * (W-2*marginX),
+                y: marginY + Math.random() * (H-2*marginY)
+            }
+        }
+
+        // 头部运动函数
+        function headMoving(targetFocusX, targetFocusY) {
+            const nextAngle = getAngle(targetFocusX, targetFocusY);
+            model.internalModel.coreModel.setParameterValueById("ParamAngleX", nextAngle.x);
+            model.internalModel.coreModel.setParameterValueById("ParamAngleY", nextAngle.y);
+        }
+
+        // 眨眼动作函数
+        function EyeBallMoving() {
+
+        }
+
+        function focusMoving(start, end, duration = 800, onUpdate) {
+            let startTime = null;
+
+            const step = (timestamp) => {
+                if (!startTime) startTime = timestamp;
+                const elapsed = timestamp - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                const eased = 1 - Math.pow(1 - progress, 3); // 缓出曲线
+
+                const currentX = start.x + (end.x - start.x) * eased;
+                const currentY = start.y + (end.y - start.y) * eased;
+
+                // 更新模型角度
+                headMoving(currentX, currentY);
+
+                // 更新焦点位置
+                if (onUpdate) onUpdate(currentX, currentY);
+
+                if (progress < 1) requestAnimationFrame(step);
+            };
+
+            requestAnimationFrame(step);
+        }
+
+        // 自动聚焦
+        function startAutoFocus() {
+            setInterval(() => {
+                const target = targetFocusGenerate();
+                console.log(target);
+                focusMoving(
+                    currentFocus,
+                    target,
+                    800,
+                    (x, y) => {
+                        currentFocus = { x, y };
+                    }
+                );
+            }, 1000);
+        }
+        
+        startAutoFocus();
+
+        /******************** 字幕部分 ********************/
+        const socket = io();
+        const subtitle = document.getElementById("subtitle");
+
+        // 监听字幕更新
+        socket.on("subtitle", (data) => {
+            subtitle.innerText = data;
+        });
+    })()
+</script>
+</html>
