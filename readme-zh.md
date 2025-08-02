@@ -15,8 +15,8 @@
 
 首先克隆本仓库：
 ```bash
-git clone https://github.com/BoogonClothman/Boots.git
-cd Boots
+git clone https://github.com/BoogonClothman/OldBoots.git
+cd OldBoots
 ```
 
 接下来按照`requirements.txt`的内容，安装指定版本的第三方库。建议使用虚拟环境，Python版本建议在`3.9`到`3.12`之间，不要使用`3.13`版本，因为很多库还没有支持这个版本。开发过程中使用了`3.11`版本。
@@ -74,7 +74,7 @@ Boots/
 
 应该指出，**本项目并不是开箱即用的**，受限于您自己的各方面选择。这里将从上述目录自上而下进行调整。
 
-1. `Boots/Core/core,py`
+1. `OldBoots/Core/core,py`
 ```py
 # ...
         # Memory
@@ -99,11 +99,11 @@ Boots/
         )
 ```
 
-2. `Boots/Framework/Frontend/.static/`
+2. `OldBoots/Framework/Frontend/.static/`
 
    请在这里放入您计划使用的Live2D模型文件，其中包括但不限于`***.model3.json`、`***.moc3`以及纹理层文件。
 
-3. `Boots/Framework/Frontend/index.html`
+3. `OldBoots/Framework/Frontend/index.html`
 ```html
 <script>
         /******************** Live2D模型 ********************/
@@ -112,7 +112,7 @@ Boots/
 </script>
 ```
 
-4. `Boots/main.py`
+4. `OldBoots/main.py`
 ```py
 # ...
     def __init__(self):
