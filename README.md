@@ -19,8 +19,8 @@ Before running this project, please ensure:
 First, clone this repository:
 
 ```bash
-git clone https://github.com/BoogonClothman/Boots.git
-cd Boots
+git clone https://github.com/BoogonClothman/OldBoots.git
+cd OldBoots
 ```
 
 Next, install the required third-party libraries as specified in `requirements.txt`. Using a virtual environment is recommended. Python versions between `3.9` and `3.12` are suggested - do not use `3.13` as many libraries don't yet support it. Development used `3.11`. 
@@ -79,7 +79,7 @@ Boots/
 
   **This project is not plug-and-play** - it depends on your specific choices. Below are the key adjustment points:
 
-1. `Boots/Core/core,py`
+1. `OldBoots/Core/core,py`
 ```py
 # ...
         # Memory
@@ -104,11 +104,11 @@ Boots/
         )
 ```
 
-2. `Boots/Framework/Frontend/.static/`
+2. `OldBoots/Framework/Frontend/.static/`
 
    Place your Live2D model files here, including but not limited to `***.model3.json`, `***.moc3` and texture files.
 
-3. `Boots/Framework/Frontend/index.html`
+3. `OldBoots/Framework/Frontend/index.html`
 ```html
 <script>
         /******************** Live2D模型 ********************/
@@ -117,7 +117,7 @@ Boots/
 </script>
 ```
 
-4. `Boots/main.py`
+4. `OldBoots/main.py`
 ```py
 # ...
     def __init__(self):
